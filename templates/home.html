@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <title>This is the home page</title>
+</head>
+
+<body>
+    <h1>This is HACKOGI</h1>
+
+    <p>
+    <h2> Active Hackathons </h2>
+    {% for hackathon in active_hackathons %}
+    <h3>{{ hackathon.title }}</h3>
+
+    <p>
+        {{hackathon.overview}}
+    </p>
+    {% endfor %}
+    </p>
+
+    <p>
+    <h2> Upcoming Hackathons </h2>
+    {% for hackathon in upcoming_hackathons %}
+    <h3>{{ hackathon.title }}</h3>
+
+    <p>
+        {{hackathon.overview}}
+    </p>
+    {% endfor %}
+    </p>
+
+    <p>
+    <h2> Past Hackathons </h2>
+    {% for hackathon in past_hackathons %}
+    <h3>{{ hackathon.title }}</h3>
+
+    <p>
+        {{hackathon.overview}}
+    </p>
+    {% endfor %}
+    </p>
+
+</body>
+
+</html>
