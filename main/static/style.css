@@ -2,8 +2,14 @@
     margin: 0;
     padding: 0;
 }
+:root {
+    --color1: #2b8212;
+    --color2: transparent;
+    --color3: #fff;
+    --color4: #111;
+}
 body {
-    background-color: #111;
+    background-color: var(--color4);
 }
 .container {
     max-width: 1200px;
@@ -14,7 +20,7 @@ body {
 }
 .nav {
     display: flex;
-    background-color: #2b8212;
+    background-color: var(--color1);
     border-radius: 10px;
     justify-content: space-between;
     padding: 0px 20px;
@@ -23,21 +29,21 @@ body {
 .menu-link {
     display: inline-block;
     text-decoration: none;
-    color: #fff;
+    color: var(--color3);
     font-size: 22px;
     padding: 15px 10px;
     transition: 0.2s;
 }
 .menu-link:hover {
-    background-color: #fff;
-    color: #2b8212;
+    background-color: var(--color4);
+    color: var(--color3);
     transition: 0.1s;
 }
 .nav-btn {
     font-size: 22px;
-    background-color: #2b8212;
+    background-color: var(--color1);
     border: none;
-    color: #fff;
+    color: var(--color3);
     margin: auto 10px;
     cursor: pointer;
     text-decoration: none;
@@ -54,13 +60,15 @@ body {
         margin-left: 10px;
     }
     .nav {
+        padding: 0;
         flex-direction: column;
     }
     .nav-right {
         margin: 10px auto;
     }
-    .menu-link {
+    .menu-link, .nav-left{
         width: 100%;
+        text-align: center;
     }
 }
 
@@ -74,7 +82,7 @@ body {
 }
 
 .hackathons-title {
-    color: #2b8212;
+    color: var(--color1);
 }
 .hackathons-list {
     display: flex;
@@ -87,7 +95,7 @@ body {
     flex-direction: column;
     min-width: 250px;
     max-width: 250px;
-    color: #2b8212;
+    color: var(--color1);
 }
 .hackathon-item-img {
     width: 100%;
@@ -101,19 +109,19 @@ body {
     line-height: 1.5;
 }
 .hackathon-item-readmore {
-    color: #fff;
+    color: var(--color3);
     text-decoration: none;
     font-size: 20px;
     padding: 5px 10px;
-    background-color: #2b8212;
-    border: 2px solid #2b8212;
+    background-color: var(--color1);
+    border: 2px solid var(--color1);
     border-radius: 5px;
     margin: 15px auto;
 }
 .hackathon-item-readmore:hover {
     transition: 0.1s;
-    background-color: transparent;
-    color: #2b8212;
+    background-color: var(--color2);
+    color: var(--color1);
 }
 ::-webkit-scrollbar {
     width: 5px;
@@ -123,5 +131,5 @@ body {
     background: #111;
 }
 ::-webkit-scrollbar-thumb {
-    background: #2b8212;
+    background: var(--color1);
 }
