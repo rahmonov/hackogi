@@ -1,9 +1,7 @@
 from django.contrib import admin
-from django.urls import path
-
-from hackogi.views import home_page
+from django.urls import path, include
 
 urlpatterns = [
-    path("", home_page),
+    path("", include('main.urls')),
     path('admin/', admin.site.urls),
 ]

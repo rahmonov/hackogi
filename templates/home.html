@@ -1,45 +1,65 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>This is the home page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to HACKOGI</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
-
 <body>
-    <h1>This is HACKOGI</h1>
-
-    <p>
-    <h2> Active Hackathons </h2>
-    {% for hackathon in active_hackathons %}
-    <h3>{{ hackathon.title }}</h3>
-
-    <p>
-        {{hackathon.overview}}
-    </p>
-    {% endfor %}
-    </p>
-
-    <p>
-    <h2> Upcoming Hackathons </h2>
-    {% for hackathon in upcoming_hackathons %}
-    <h3>{{ hackathon.title }}</h3>
-
-    <p>
-        {{hackathon.overview}}
-    </p>
-    {% endfor %}
-    </p>
-
-    <p>
-    <h2> Past Hackathons </h2>
-    {% for hackathon in past_hackathons %}
-    <h3>{{ hackathon.title }}</h3>
-
-    <p>
-        {{hackathon.overview}}
-    </p>
-    {% endfor %}
-    </p>
-
+    <div class="container">
+        <nav class="nav">
+            <div class="nav-left">
+                <!-- <img src="{% static '' %}" class="logo" /> -->
+                <menu>
+                    <a href="#" class="menu-link">Home</a>
+                    <a href="#" class="menu-link">Contribute</a>
+                    <a href="#" class="menu-link">Contact us</a>
+                    <a href="#" class="menu-link">About us</a>
+                </menu> 
+            </div>
+            <div class="nav-right">
+                <a href="#" class="nav-btn">Login</a>
+                <a href="#" class="nav-btn">Register</a>
+            </div>
+        </nav>
+        <img src="{% static 'banner.jpeg' %}" alt="banner" class="banner">
+    </img>
+    <div class="hackathons">
+        <h2 class="hackathons-title">Active Hackathons</h2>
+        <div class="hackathons-list">
+            {% for hackathon in active_hackathons %}
+            <div class="hackathon-item">
+                <img src="{% static 'h.jpeg' %}" alt="project's picture" class="hackathon-item-img">
+                <h3 class="hackathon-item-title">{{ hackathon.title }}</h3>
+                <p class="hackathon-item-overview">{{ hackathon.overview | truncatechars:100 }}</p>
+                <a href="#" class="hackathon-item-readmore">Read More</a>
+            </div>
+            {% endfor %}
+        </div>
+        <h2 class="hackathons-title">Upcoming Hackathons</h2>
+        <div class="hackathons-list">
+            {% for hackathon in upcoming_hackathons %}
+            <div class="hackathon-item">
+                <img src="{% static 'h.jpeg' %}" alt="project's picture" class="hackathon-item-img">
+                <h3 class="hackathon-item-title">{{ hackathon.title }}</h3>
+                <p class="hackathon-item-overview">{{ hackathon.overview | truncatechars:100 }}</p>
+                <a href="#" class="hackathon-item-readmore">Read More</a>
+            </div>
+            {% endfor %}
+        </div>
+        <h2 class="hackathons-title">Past Hackathons</h2>
+        <div class="hackathons-list">
+            {% for hackathon in past_hackathons %}
+            <div class="hackathon-item">
+                <img src="{% static 'h.jpeg' %}" alt="project's picture" class="hackathon-item-img">
+                <h3 class="hackathon-item-title">{{ hackathon.title }}</h3>
+                <p class="hackathon-item-overview">{{ hackathon.overview | truncatechars:100 }}</p>
+                <a href="#" class="hackathon-item-readmore">Read More</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </body>
-
 </html>
