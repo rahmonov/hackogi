@@ -7,6 +7,7 @@
     --color2: transparent;
     --color3: #fff;
     --color4: #111;
+    --color5:#2b8212cc;
 }
 body {
     background-color: var(--color4);
@@ -20,11 +21,14 @@ body {
 }
 .nav {
     display: flex;
-    background-color: var(--color1);
+    background-color: var(--color5);
     border-radius: 10px;
     justify-content: space-between;
     padding: 0px 20px;
     align-items: center;
+    position: sticky;
+    top: 20px;
+    backdrop-filter: blur(5px);
 }
 .menu-link {
     display: inline-block;
@@ -41,7 +45,7 @@ body {
 }
 .nav-btn {
     font-size: 22px;
-    background-color: var(--color1);
+    background-color: var(--color2);
     border: none;
     color: var(--color3);
     margin: auto 10px;
@@ -49,6 +53,15 @@ body {
     text-decoration: none;
 }
 .nav-btn:hover {
+    text-decoration: underline;
+}
+.nav-toggler {
+    display: none;
+    font-size: 22px;
+    color: var(--color3);
+    cursor: pointer;
+}
+.nav-toggler:hover {
     text-decoration: underline;
 }
 @media screen and (max-width: 576px) {
@@ -62,6 +75,7 @@ body {
     .nav {
         padding: 0;
         flex-direction: column;
+        position: static;
     }
     .nav-right {
         margin: 10px auto;
@@ -69,6 +83,12 @@ body {
     .menu-link, .nav-left{
         width: 100%;
         text-align: center;
+    }
+    .nav-left /*.nav-right*/ {
+        display: none;
+    }
+    .nav-toggler {
+        display: block;
     }
 }
 

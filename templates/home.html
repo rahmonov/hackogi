@@ -10,7 +10,8 @@
 <body>
     <div class="container">
         <nav class="nav">
-            <div class="nav-left">
+            <div class="nav-toggler" id="nav-toggler">Show Menu</div>
+            <div class="nav-left" id="nav-left">
                 <!-- <img src="{% static '' %}" class="logo" /> -->
                 <menu>
                     <a href="#" class="menu-link">Home</a>
@@ -61,5 +62,6 @@
             {% endfor %}
         </div>
     </div>
+    <script text="text/javascript" src="{% static 'main.js' %}"></script>
 </body>
 </html>
