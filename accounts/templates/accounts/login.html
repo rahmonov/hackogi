@@ -1,0 +1,26 @@
+{% include "header.html" %}
+
+<form method="post">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger">
+        {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% for field in form %}
+        <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.errors %}
+                <div class="alert alert-danger">
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button type="submit">Login</button>
+</form>
