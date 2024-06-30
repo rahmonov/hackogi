@@ -1,3 +1,27 @@
+<header class="p-3 text-bg-dark">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 nav-pills">
+                <li class="nav-item">
+                    <a href="{% url 'home' %}" class="nav-link px-2 text-white {% if request.path == '/' %}active {% endif %}">Home</a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link px-2 text-white">Events</a>
+                </li>
+            </ul>
+
+            <div class="text-end">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'accounts:logout-view' %}"><button type="button" class="btn btn-outline-danger me-2">Logout</button></a>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
+                {% endif %}
+                <a href="{% url 'accounts:register' %}"><button type="button" class="btn btn-warning">Sign-up</button></a>
+            </div>
+        </div>
+    </div>
+</header>
+<!--
     {% if user.is_authenticated %}
     <a href="{% url 'accounts:logout-view' %}">LogOut</a>
     {% else %}
@@ -5,3 +29,4 @@
     {% endif %}
 
     / <a href="{% url 'accounts:register' %}">Register</a>
+-->
