@@ -4,12 +4,12 @@
 {% block content %}
 
 <div class="mt-4">
-    <div class="d-xl-flex col-xl" style="gap: 20px;">
+    <div class="d-xl-flex col-xl">
         <div>
             <img src="https://thumbs.dreamstime.com/b/simple-website-html-code-colourful-tags-browser-view-dark-background-orange-text-183366184.jpg"
                 class="rounded mx-auto d-block" width="300" alt="***">
         </div>
-        <div class="col align-content-end flex-wrap text-center text-xl-start">
+        <div class="col align-content-end flex-wrap text-center text-xl-start ms-3">
             <h1>{{ event.title }}</h1>
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -24,20 +24,62 @@
             </nav>
         </div>
     </div>
-    
+
     <div class="tab-content mt-4" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-overview" role="tabpanel" aria-labelledby="nav-overview-tab">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, inventore quo eveniet veniam cum cupiditate eum ad accusantium magni laborum? Hic nihil consequuntur ullam quas totam earum doloribus! Molestias, cumque?
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, inventore quo eveniet veniam cum cupiditate eum ad accusantium magni laborum? Hic nihil consequuntur ullam quas totam earum doloribus! Molestias, cumque?
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, inventore quo eveniet veniam cum cupiditate eum ad accusantium magni laborum? Hic nihil consequuntur ullam quas totam earum doloribus! Molestias, cumque?
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, inventore quo eveniet veniam cum cupiditate eum ad accusantium magni laborum? Hic nihil consequuntur ullam quas totam earum doloribus! Molestias, cumque?
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, inventore quo eveniet veniam cum cupiditate eum ad accusantium magni laborum? Hic nihil consequuntur ullam quas totam earum doloribus! Molestias, cumque?
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, inventore quo eveniet veniam cum cupiditate eum ad accusantium magni laborum? Hic nihil consequuntur ullam quas totam earum doloribus! Molestias, cumque?
+            {{ event.overview }}
         </div>
-        <div class="tab-pane fade" id="nav-ideas" role="tabpanel" aria-labelledby="nav-ideas-tab">.2..</div>
+        <div class="tab-pane fade" id="nav-ideas" role="tabpanel" aria-labelledby="nav-ideas-tab">
+            {% if request.user.is_authenticated %}
+            <div class="row w-50 mb-3">
+                <form method="post" action="{% url 'events:create-idea' event.id %}">
+                    {% csrf_token %}
+                    {{ idea_form.as_p }}
+                    <!--
+                    <div class="mb-3">
+                        <label for="titleInput" class="form-label">Idea title</label>
+                        <input type="text" class="form-control" id="titleInput" aria-describedby="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="overviewInput" class="form-label">Idea Overview</label>
+                        <textarea id="overviewInput" class="form-control">
+                        </textarea>
+                    </div>
+-->
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            {% endif %}
+
+            {% for idea in ideas %}
+            <div id="ideas-list" class="row">
+                <form id="upvote-idea-{{ idea.id }}" method="post" type="hidden" action="{% url 'events:upvote-idea' event.id idea.id %}">
+                    {% csrf_token %}
+                </form>
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ idea.title }}</h5>
+                            {% if idea.is_liked %}
+                            <i class="fa-solid fa-heart"></i>
+                            {% else %}
+                            <i class="fa-regular fa-heart" onclick="upvoteIdea({{ idea.id }})"></i>
+                            {% endif %}
+                            <span class="badge text-bg-secondary">{{ idea.upvotes.count }}</span>
+                            <p class="card-text">{{ idea.overview }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
     </div>
-    
-</div>
 
+</div>
+<script>
+function upvoteIdea(idea_id) {
+    document.getElementById(`upvote-idea-${idea_id}`).submit();
+}
+</script>
 {% endblock %}

@@ -22,3 +22,41 @@ class Event(BaseModel):
 
     def __str__(self):
         return self.title
+
+
+class Idea(BaseModel):
+    event = models.ForeignKey(
+        Event, related_name="ideas", related_query_name="idea", on_delete=models.CASCADE
+    )
+    owner = models.ForeignKey(
+        "accounts.CustomUser",
+        related_name="ideas",
+        related_query_name="idea",
+        on_delete=models.CASCADE,
+    )
+    title = models.CharField(_("title"), max_length=255)
+    overview = models.TextField(_("overview"))
+
+    def __str__(self):
+        return self.title
+
+
+class IdeaUpvote(BaseModel):
+    idea = models.ForeignKey(
+        Idea,
+        related_name="upvotes",
+        related_query_name="upvote",
+        on_delete=models.CASCADE,
+    )
+    user = models.ForeignKey(
+        "accounts.CustomUser",
+        related_name="upvotes",
+        related_query_name="upvote",
+        on_delete=models.CASCADE,
+    )
+
+    class Meta:
+        unique_together = ("idea", "user",)
+
+    def __str__(self):
+        return f"{self.user} likes {self.idea.title}"

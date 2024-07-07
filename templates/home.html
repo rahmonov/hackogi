@@ -15,23 +15,25 @@
 <h2 class="mt-2">Active Hackathons </h2>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     {% for hackathon in active_hackathons %}
-    <div class="col">
-        <div class="card shadow-sm">
-            <img src="https://thumbs.dreamstime.com/b/simple-website-html-code-colourful-tags-browser-view-dark-background-orange-text-183366184.jpg"
-                class="bd-placeholder-img card-img-top" width="100%" height="225" alt="hackathon image">
-            <div class="card-body">
-                <p class="card-text">{{ hackathon.title }}</p>
-                {{hackathon.overview}}
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">***</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">***</button>
+        <div class="col">
+            <div class="card shadow-sm">
+                <img src="https://thumbs.dreamstime.com/b/simple-website-html-code-colourful-tags-browser-view-dark-background-orange-text-183366184.jpg"
+                    class="bd-placeholder-img card-img-top" width="100%" height="225" alt="hackathon image">
+                <div class="card-body">
+                <a href="{% url 'events:event-detail' hackathon.id %}"><p class="card-text">{{ hackathon.title }}</p></a>
+                    {{hackathon.overview}}
+                    <!--
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">***</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">***</button>
+                        </div>
+                        <small class="text-body-secondary">9 Jul</small>
                     </div>
-                    <small class="text-body-secondary">9 Jul</small>
+    -->
                 </div>
             </div>
         </div>
-    </div>
     {% endfor %}
 </div>
 
@@ -43,8 +45,9 @@
             <img src="https://thumbs.dreamstime.com/b/simple-website-html-code-colourful-tags-browser-view-dark-background-orange-text-183366184.jpg"
                 class="bd-placeholder-img card-img-top" width="100%" height="225" alt="hackathon image">
             <div class="card-body">
-                <p class="card-text">{{ hackathon.title }}</p>
+                <a href="{% url 'events:event-detail' hackathon.id %}"><p class="card-text">{{ hackathon.title }}</p></a>
                 {{hackathon.overview}}
+                <!--
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-outline-secondary">***</button>
@@ -52,12 +55,12 @@
                     </div>
                     <small class="text-body-secondary">9 Jul</small>
                 </div>
+-->
             </div>
         </div>
     </div>
     {% endfor %}
 </div>
-
 
 <h2 class="mt-2">Past Hackathons </h2>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -67,8 +70,9 @@
             <img src="https://thumbs.dreamstime.com/b/simple-website-html-code-colourful-tags-browser-view-dark-background-orange-text-183366184.jpg"
                 class="bd-placeholder-img card-img-top" width="100%" height="225" alt="hackathon image">
             <div class="card-body">
-                <p class="card-text">{{ hackathon.title }}</p>
+                <a href="{% url 'events:event-detail' hackathon.id %}"><p class="card-text">{{ hackathon.title }}</p></a>
                 {{hackathon.overview}}
+                <!--
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-outline-secondary">***</button>
@@ -76,6 +80,7 @@
                     </div>
                     <small class="text-body-secondary">9 Jul</small>
                 </div>
+            -->
             </div>
         </div>
     </div>

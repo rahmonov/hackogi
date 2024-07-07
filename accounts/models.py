@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from accounts.managers import CustomUserManager
+from events.models import IdeaUpvote
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -28,3 +29,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+    def likes_idea(self, idea_id):
+        return IdeaUpvote.objects.filter(user=self, idea_id=idea_id)
