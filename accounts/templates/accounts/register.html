@@ -3,11 +3,90 @@
 {% block title %} Register Page {% endblock title %}
 
 {% block content %}
-    <h1>Signup</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Signup</button>
-        <a href="{% url 'accounts:login' %}">Already have account?</a>
-    </form>
+<style>
+    .form-signin {
+        max-width: 530px;
+        padding: 1rem;
+    }
+</style>
+<div class="d-flex align-items-center py-4">
+    <div class="form-signin w-100 m-auto">
+        <h1 class="h3 mb-3 fw-normal">Sign up</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <!-- {{ form.as_p }} -->
+
+            {% for field in form %}
+            <div class="mb-3">
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                {{ field }}
+
+                {% if field.id_for_label == 'password1' %}
+                <ul class="mt-2" id="password-rules">
+                    <li id="rule1">Your password can’t be too similar to your other personal information.</li>
+                    <li id="rule2">Your password must contain at least 8 characters.</li>
+                    <li id="rule3">Your password can’t be a commonly used password.</li>
+                    <li id="rule4">Your password can’t be entirely numeric.</li>
+                </ul>
+                {% endif %}
+
+            </div>
+
+                {% if field.errors %}
+                <div class="alert alert-danger">
+                    {% for error in field.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary w-100 py-2">Signup</button>
+            <a href="{% url 'accounts:login' %}" class="text-reset">Already have account?</a>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const passwordField = document.getElementById('password1');
+        const rule1 = document.getElementById('rule1');
+        const rule2 = document.getElementById('rule2');
+        const rule3 = document.getElementById('rule3');
+        const rule4 = document.getElementById('rule4');
+
+        const commonlyUsedPasswords = ['password', '123456', '123456789', 'qwerty', '12345678', '111111', '123123'];
+
+        passwordField.addEventListener('input', function () {
+            const value = passwordField.value;
+
+            // Check if the password is similar to other personal information
+            // This example assumes a function getPersonalInformation() that returns a list of personal info
+            const personalInfo = getPersonalInformation();
+            let similar = false;
+            for (const info of personalInfo) {
+                if (value.includes(info)) {
+                    similar = true;
+                    break;
+                }
+            }
+            rule1.style.color = similar ? 'red' : 'green';
+
+            // Check if the password has at least 8 characters
+            rule2.style.color = value.length >= 8 ? 'green' : 'red';
+
+            // Check if the password is a commonly used password
+            rule3.style.color = commonlyUsedPasswords.includes(value) ? 'red' : 'green';
+
+            // Check if the password is entirely numeric
+            rule4.style.color = /^\d+$/.test(value) ? 'red' : 'green';
+        });
+
+        function getPersonalInformation() {
+            // Example personal information, replace with actual data
+            return ['username', 'email', 'name'];
+        }
+    });
+</script>
 {% endblock content %}

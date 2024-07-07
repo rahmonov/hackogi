@@ -1,39 +1,86 @@
 {% extends 'base.html' %}
-    {% block title %} Home Page {% endblock title %}
+{% block title %} Home Page {% endblock title %}
 
-    {% block content %}
+{% block content %}
 
-    <p>
-    <h2> Active Hackathons </h2>
+<div class="p-4 p-md-5 mt-4 mb-4 rounded text-body-emphasis bg-body-secondary">
+    <div class="col-lg-6 px-0">
+        <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
+        <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently
+            about what’s most interesting in this post’s contents.</p>
+        <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></p>
+    </div>
+</div>
+
+<h2 class="mt-2">Active Hackathons </h2>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     {% for hackathon in active_hackathons %}
-    <h3>{{ hackathon.title }}</h3>
-
-    <p>
-        {{hackathon.overview}}
-    </p>
+    <div class="col">
+        <div class="card shadow-sm">
+            <img src="https://thumbs.dreamstime.com/b/simple-website-html-code-colourful-tags-browser-view-dark-background-orange-text-183366184.jpg"
+                class="bd-placeholder-img card-img-top" width="100%" height="225" alt="hackathon image">
+            <div class="card-body">
+                <p class="card-text">{{ hackathon.title }}</p>
+                {{hackathon.overview}}
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">***</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">***</button>
+                    </div>
+                    <small class="text-body-secondary">9 Jul</small>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endfor %}
-    </p>
+</div>
 
-    <p>
-    <h2> Upcoming Hackathons </h2>
+<h2 class="mt-2"> Upcoming Hackathons </h2>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     {% for hackathon in upcoming_hackathons %}
-    <h3>{{ hackathon.title }}</h3>
-
-    <p>
-        {{hackathon.overview}}
-    </p>
+    <div class="col">
+        <div class="card shadow-sm">
+            <img src="https://thumbs.dreamstime.com/b/simple-website-html-code-colourful-tags-browser-view-dark-background-orange-text-183366184.jpg"
+                class="bd-placeholder-img card-img-top" width="100%" height="225" alt="hackathon image">
+            <div class="card-body">
+                <p class="card-text">{{ hackathon.title }}</p>
+                {{hackathon.overview}}
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">***</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">***</button>
+                    </div>
+                    <small class="text-body-secondary">9 Jul</small>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endfor %}
-    </p>
+</div>
 
-    <p>
-    <h2> Past Hackathons </h2>
+
+<h2 class="mt-2">Past Hackathons </h2>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     {% for hackathon in past_hackathons %}
-    <h3>{{ hackathon.title }}</h3>
-
-    <p>
-        {{hackathon.overview}}
-    </p>
+    <div class="col">
+        <div class="card shadow-sm">
+            <img src="https://thumbs.dreamstime.com/b/simple-website-html-code-colourful-tags-browser-view-dark-background-orange-text-183366184.jpg"
+                class="bd-placeholder-img card-img-top" width="100%" height="225" alt="hackathon image">
+            <div class="card-body">
+                <p class="card-text">{{ hackathon.title }}</p>
+                {{hackathon.overview}}
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">***</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">***</button>
+                    </div>
+                    <small class="text-body-secondary">9 Jul</small>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endfor %}
-    </p>
+</div>
+
 
 {% endblock %}

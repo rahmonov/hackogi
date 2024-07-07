@@ -1,7 +1,43 @@
 {% extends 'base.html' %}
-
 {% block title %} Event Detail Page {% endblock title %}
 
 {% block content %}
-    {{ event.title }}
-{% endblock content %}
+
+<div class="mt-4">
+    <div class="d-xl-flex col-xl" style="gap: 20px;">
+        <div>
+            <img src="https://thumbs.dreamstime.com/b/simple-website-html-code-colourful-tags-browser-view-dark-background-orange-text-183366184.jpg"
+                class="rounded mx-auto d-block" width="300" alt="***">
+        </div>
+        <div class="col align-content-end flex-wrap text-center text-xl-start">
+            <h1>{{ event.title }}</h1>
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
+                        data-bs-target="#nav-overview" type="button" role="tab" aria-controls="nav-overview"
+                        aria-selected="true">Overview</button>
+                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-ideas"
+                        type="button" role="tab" aria-controls="nav-ideas" aria-selected="false">Ideas</button>
+                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+                        type="button" role="tab" aria-controls="nav-contact" aria-selected="false">****</button>
+                </div>
+            </nav>
+        </div>
+    </div>
+    
+    <div class="tab-content mt-4" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-overview" role="tabpanel" aria-labelledby="nav-overview-tab">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, inventore quo eveniet veniam cum cupiditate eum ad accusantium magni laborum? Hic nihil consequuntur ullam quas totam earum doloribus! Molestias, cumque?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, inventore quo eveniet veniam cum cupiditate eum ad accusantium magni laborum? Hic nihil consequuntur ullam quas totam earum doloribus! Molestias, cumque?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, inventore quo eveniet veniam cum cupiditate eum ad accusantium magni laborum? Hic nihil consequuntur ullam quas totam earum doloribus! Molestias, cumque?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, inventore quo eveniet veniam cum cupiditate eum ad accusantium magni laborum? Hic nihil consequuntur ullam quas totam earum doloribus! Molestias, cumque?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, inventore quo eveniet veniam cum cupiditate eum ad accusantium magni laborum? Hic nihil consequuntur ullam quas totam earum doloribus! Molestias, cumque?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, inventore quo eveniet veniam cum cupiditate eum ad accusantium magni laborum? Hic nihil consequuntur ullam quas totam earum doloribus! Molestias, cumque?
+        </div>
+        <div class="tab-pane fade" id="nav-ideas" role="tabpanel" aria-labelledby="nav-ideas-tab">.2..</div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+    </div>
+    
+</div>
+
+{% endblock %}

@@ -3,28 +3,45 @@
 {% block title %} Login Page {% endblock title %}
 
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {% if form.non_field_errors %}
-        <div class="alert alert-danger">
-            {% for error in form.non_field_errors %}
-                {{ error }}
-            {% endfor %}
-        </div>
-        {% endif %}
-        {% for field in form %}
-            <div class="form-group">
-                {{ field.label_tag }}
-                {{ field }}
-                {% if field.errors %}
-                    <div class="alert alert-danger">
-                        {% for error in field.errors %}
+
+<section class="min-vh-100 d-flex">
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5 d-none d-xl-block">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                    class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <h1 class="h3 mb-3 fw-normal">Sign in</h1>
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="alert alert-danger">
+                            {% for error in field.errors %}
                             {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors %}
+                        {{ error }}
                         {% endfor %}
                     </div>
-                {% endif %}
+                    {% endif %}
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button type="submit" class="btn btn-primary w-100 ">Login</button>
+                    </div>
+                </form>
             </div>
-        {% endfor %}
-        <button type="submit">Login</button>
-    </form>
+        </div>
+    </div>
+</section>
 {% endblock content %}
