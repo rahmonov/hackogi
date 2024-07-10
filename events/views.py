@@ -1,3 +1,4 @@
+from django.http import JsonResponse, HttpResponseNotFound
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Exists, OuterRef
 from django.http.response import HttpResponse
@@ -50,8 +51,21 @@ class UpvoteIdeaView(LoginRequiredMixin, View):
         try:
             idea = Idea.objects.get(id=idea_id, event__id=event_id)
         except Idea.DoesNotExist:
-            return HttpResponse("Idea does not exist")
+            return HttpResponseNotFound("Idea does not exist")
 
+        # Check if the user has already upvoted this idea
+        if IdeaUpvote.objects.filter(idea=idea, user=request.user).exists():
+            # Optionally, you might want to handle the case where the user tries to upvote again.
+            return JsonResponse({'error': 'Already upvoted'}, status=400)
+
+        # Create a new upvote record
         IdeaUpvote.objects.create(idea=idea, user=request.user)
 
-        return redirect("events:event-detail", event_id=event_id)
+        # Count the number of upvotes for the idea
+        upvotes_count = IdeaUpvote.objects.filter(idea=idea).count()
+
+        # Return JSON response with updated like status and count
+        return JsonResponse({
+            'is_liked': True,
+            'upvotes_count': upvotes_count,
+        })
