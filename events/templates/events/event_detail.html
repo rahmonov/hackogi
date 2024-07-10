@@ -2,7 +2,12 @@
 {% block title %} Event Detail Page {% endblock title %}
 
 {% block content %}
-
+<style>
+    .event-card {
+        top: 15px;
+        right: 20px;
+    }
+</style>
 <div class="mt-4">
     <div class="d-xl-flex col-xl">
         <div>
@@ -31,55 +36,100 @@
         </div>
         <div class="tab-pane fade" id="nav-ideas" role="tabpanel" aria-labelledby="nav-ideas-tab">
             {% if request.user.is_authenticated %}
-            <div class="row w-50 mb-3">
-                <form method="post" action="{% url 'events:create-idea' event.id %}">
-                    {% csrf_token %}
-                    {{ idea_form.as_p }}
-                    <!--
-                    <div class="mb-3">
-                        <label for="titleInput" class="form-label">Idea title</label>
-                        <input type="text" class="form-control" id="titleInput" aria-describedby="">
-                    </div>
-                    <div class="mb-3">
-                        <label for="overviewInput" class="form-label">Idea Overview</label>
-                        <textarea id="overviewInput" class="form-control">
-                        </textarea>
-                    </div>
--->
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-            {% endif %}
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#createIdeas">
+                Create Idea
+            </button>
 
-            {% for idea in ideas %}
-            <div id="ideas-list" class="row">
-                <form id="upvote-idea-{{ idea.id }}" method="post" type="hidden" action="{% url 'events:upvote-idea' event.id idea.id %}">
-                    {% csrf_token %}
-                </form>
-                <div class="col-md-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ idea.title }}</h5>
-                            {% if idea.is_liked %}
-                            <i class="fa-solid fa-heart"></i>
-                            {% else %}
-                            <i class="fa-regular fa-heart" onclick="upvoteIdea({{ idea.id }})"></i>
-                            {% endif %}
-                            <span class="badge text-bg-secondary">{{ idea.upvotes.count }}</span>
-                            <p class="card-text">{{ idea.overview }}</p>
+            <!-- Modal -->
+            <div class="modal fade" id="createIdeas" tabindex="-1" aria-labelledby="createIdeas" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="createIdeas">Create Idea</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+                        <form method="post" action="{% url 'events:create-idea' event.id %}">
+                            <div class="modal-body">
+                                {% csrf_token %}
+                                {{ idea_form.as_p }}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+            {% endif %}
+
+            <div class="row gy-4">
+                {% for idea in ideas %}
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body position-relative">
+                            <h5 class="card-title">{{ idea.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ idea.overview }}</h6>
+                            <div class="position-absolute event-card">
+                                <button class="btn btn-link position-relative"
+                                    onclick="upvoteIdea('{{ event.id }}', '{{ idea.id }}', this)">
+                                    {% if idea.is_liked %}
+                                    <i class="fa-solid fa-heart"></i>
+                                    {% else %}
+                                    <i class="fa-regular fa-heart"></i>
+                                    {% endif %}
+                                    <span
+                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+                                        {{ idea.upvotes.count }}
+                                        <span class="visually-hidden">unread messages</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
     </div>
 
 </div>
 <script>
-function upvoteIdea(idea_id) {
-    document.getElementById(`upvote-idea-${idea_id}`).submit();
-}
+    function upvoteIdea(eventId, ideaId, buttonElement) {
+        const csrftoken = '{{ csrf_token }}';
+        fetch(`/events/${eventId}/ideas/${ideaId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({}),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+
+                // Update the UI based on the response
+                const icon = buttonElement.querySelector('i');
+                const badge = buttonElement.querySelector('.badge');
+
+                if (data.is_liked) {
+                    icon.classList.remove('fa-regular');
+                    icon.classList.add('fa-solid');
+                } 
+
+                badge.textContent = data.upvotes_count;
+            })
+            .catch(error => {
+                console.error('There was a problem with your fetch operation:', error);
+            });
+    }
+
 </script>
 {% endblock %}

@@ -20,7 +20,7 @@
                 {% if user.is_authenticated %}
 
                 <a href="{% url 'accounts:logout-view' %}"><button type="button"
-                        class="btn btn-outline-danger me-2">Logout</button></a>
+                        class="btn btn-sm btn-danger me-2">Logout</button></a>
                 {% else %}
                 <a class="btn btn-sm btn-success" href="{% url 'accounts:login' %}" role="button">Login</a>
                 {% endif %}
